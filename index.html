@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rutina Día 1: Pecho + Hombros</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f0f0f0; }
+    h1 { color: #333; text-align: center; }
+    .ejercicio { background: #fff; border-radius: 8px; padding: 15px; margin: 15px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .nombre { font-weight: bold; font-size: 1.1em; margin-bottom: 5px; }
+    .detalle { color: #555; font-size: 0.9em; margin-bottom: 10px; }
+    .pesos label { display: block; margin: 5px 0; font-size: 0.9em; }
+    input[type="number"] { width: 100%; padding: 6px; margin-top: 2px; font-size: 1em; box-sizing: border-box; }
+  </style>
+</head>
+<body>
+  <h1>🚀 Día 1: Pecho + Hombros (Versión nueva)</h1>
+  <div id="rutina"></div>
+
+  <script>
+    const ejercicios = [
+      { nombre: "Press banca plano", detalle: "4x6–8 | Piramidal ascendente" },
+      { nombre: "Press inclinado con mancuernas", detalle: "3x8–10 | Piramidal ascendente" },
+      { nombre: "Aperturas en máquina o mancuernas", detalle: "3x12–15 | Peso constante" },
+      { nombre: "Press militar", detalle: "3x8–10 | Piramidal ascendente" },
+      { nombre: "Elevaciones laterales", detalle: "3x12–15 | Peso constante" },
+      { nombre: "Extensión tríceps cuerda", detalle: "3x12–15 | Peso constante" },
+      { nombre: "Fondos en paralelas / press cerrado", detalle: "3x8–10 | Peso corporal o piramidal" },
+      { nombre: "Extensión tras nuca (opcional)", detalle: "2x12–15 | Peso constante" }
+    ];
+
+    const contenedor = document.getElementById("rutina");
+
+    ejercicios.forEach((ej, i) => {
+      let campos = '';
+      for (let semana = 1; semana <= 4; semana++) {
+        const id = `peso_${i}_sem${semana}`;
+        const guardado = localStorage.getItem(id) || "";
+        campos += `
+          <label>Semana ${semana}: 
+            <input type="number" id="${id}" value="${guardado}" onchange="guardarPeso('${id}')">
+          </label>`;
+      }
+
+      contenedor.innerHTML += `
+        <div class="ejercicio">
+          <div class="nombre">${ej.nombre}</div>
+          <div class="detalle">${ej.detalle}</div>
+          <div class="pesos">${campos}</div>
+        </div>
+      `;
+    });
+
+    function guardarPeso(id) {
+      const valor = document.getElementById(id).value;
+      localStorage.setItem(id, valor);
+    }
+  </script>
+</body>
+</html>
